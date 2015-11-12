@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<title>FFG EnableIndia</title>
+<!-- Bootstrap core CSS -->
+<link href="/static/moderator/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/moderator/css/sb-admin.css" rel="stylesheet">
+<link href="/static/moderator/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="/static/css/bootstrap.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="/static/css/navbar-static-top.css" rel="stylesheet">
+<script src="/static/js/ie-emulation-modes-warning.js"></script>
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/custom.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="/static/js/ie10-viewport-bug-workaround.js"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- <script src="/static/js/html5shiv.min.js"></script> -->
+<!-- <script src="/static/js/respond.min.js"></script> -->
+</head>
+<body>
+<!-- Static navbar -->
+<nav class="navbar navbar-inverse navbar-static-top">
+<div class="container-fluid">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle collapsed"
+data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+aria-controls="navbar">
+<span class="sr-only">Toggle navigation</span> <span
+class="icon-bar"></span> <span class="icon-bar"></span> <span
+class="icon-bar"></span>
+</button>
+<span class="navbar-brand"><b>EnableIndia</b></span>
+</div>
+<div id="navbar" class="navbar-collapse collapse">
+<ul class="nav navbar-nav">
+<li class="{% if type == "mentee" %} active {% endif %}"><a href="/listmentee" >Mentee</a></li>
+<li class="{% if type == "mentor" %} active {% endif %}"><a href="/listmentor" >Mentor</a></li>
+<li class="{% if type == "moderator" %} active {% endif %}"><a href="/listmoderator" >Moderator</a></li>
+<li class="{% if type == "reports" %} active {% endif %}"><a href="/orgDetails" >Reports</a></li>
+<!--Commented as dropdown menu as it is not reqiured
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+<ul class="dropdown-menu" role="menu">
+<li><a href="#jumbo" data-toggle="tab">Action</a></li>
+<li><a href="#about" data-toggle="tab">Another action</a></li>
+<li><a href="#contact" data-toggle="tab">Something else here</a></li>
+<li class="divider"></li>
+<li class="dropdown-header">Nav header</li>
+<li><a href="#">Separated link</a></li>
+<li><a href="#">One more separated link</a></li>
+</ul>
+</li>
+-->
+</ul>
+<ul class="nav navbar-right" style="margin-top:5px;">
+<li class="dropdown pull-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ session['username'] }} <b class="caret"></b></a>
+                    <ul class="dropdown-menu" style="min-width:180px;">
+                       <!-- <li>
+                            <a href="ChangePasswordMod"><i class="fa fa-fw fa-user-secret"></i> Change Password</a>
+                        </li>-->
+                        
+                        <li>
+                            <a href="/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+</ul>
+<!--Not required
+<ul class="nav navbar-nav navbar-right">
+<li class="active"><a href="http://getbootstrap.com/examples/navbar/">Default <span class="sr-only">(current)</span></a></li>
+<li><a href="http://getbootstrap.com/examples/navbar-static-top/">Static top</a></li>
+<li><a href="http://getbootstrap.com/examples/navbar-fixed-top/">Fixed top</a></li>
+</ul>
+-->
+<!--<a href="/logout"><button type="button" class="btn btn-danger pull-right">LOGOUT</button></a>
+</div>-->
+<!--/.nav-collapse -->
+</div>
+<!--/.container-fluid -->
+</nav>
+<div class="container">
+<div class="tab-content">
+
+{% if type == "mentee" %}
+<div class="tab-pane col-lg-12 active" id="mentee">
+  
+  <div  class="row">
+    {% if option == "view" %}
+    <a href="/report?id={{ data[0] }}"><button type="button" class="btn btn-sm btn-warning pull-right">DOWNLOAD</button></a>
+    {% endif %}
+    {% if listall %}
+    <span class="pull-right"><a href="/listmentee"><button type="button" class="btn btn-sm btn-info">LIST ALL</button></a>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    {% endif %}
+    <form id="menteeform" action="/searchmentee" method="POST">
+    <input type="text" placeholder="Enter Name" name="menteesearchkey" id="menteesearchkey"/>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onClick="checkForm('menteeform',document.getElementById('menteesearchkey'));" class="btn btn-sm btn-primary">SEARCH</button>
+  </form>
+  </div>
+  <br/>
+  {% if option == "view" %}
+  <div class="row">
+  <div class="col-md-3">
+    <img height="300px" width="250px" src="/static/img/profile_default.png"/>
+  </div>
+  <div class="col-md-6">
+    <table class="table">
+      <tr>
+        <th>ID:</th>
+        <td>{{ data[0] }}</td>
+      </tr>
+      <tr>
+        <th>NAME:</th>
+        <td>{{ data[1] }}</td>
+      </tr>
+      <tr>
+        <th>DISABILITY:</th>
+        <td>{{ data[2] }}</td>
+      </tr>
+      <tr>
+        <th>EMAIL:</th>
+        <td>{{ data[3] }}</td>
+      </tr>
+      <tr>
+        <th></th>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+</div>
+{% else %}
+  <div class="row">
+  <br/>
+    <table class="table table-bordered">
+      <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>DISABILITY</th>
+        <th>EMAIL</th>
+      </tr>
+    {% for item in data %}
+    {% if item %}
+    <tr>
+      <td><a href="/viewmentee?id={{ item[0] }}">{{ item[0] }}</a></td>
+      <td>{{ item[1] }}</td>
+      <td>{{ item[2] }}</td>
+      <td>{{ item[3] }}</td>
+    </tr>
+    {% endif %}
+  {% endfor %}
+</table>
+<br/>
+<br/>
+{% if option != "search" %}
+<ul class="pagination">
+  <li><a href="/listmentee?page={{ page-1 }}">PREV</a></li>
+  <li><a href="#">{{ page }}</a></li>
+  <li><a href="/listmentee?page={{ page+1 }}">NEXT</a></li>
+  {% endif %}
+  </ul>
+  </div>
+  {% endif %}
+</div>
+{% else %}
+<div class="tab-pane col-lg-12" id="mentee"></div>
+{% endif %} 
+
+{% if type == "mentor" %}
+<div class="tab-pane col-lg-12 active" id="mentor">
+
+<div  class="row">
+    {% if option == "view" %}
+    <a href="/report?id={{ data[0] }}"><button type="button" class="btn btn-sm btn-warning pull-right">DOWNLOAD</button></a>
+    {% endif %}
+    {% if listall %}
+    <span class="pull-right"><a href="/listmentor"><button type="button" class="btn btn-sm btn-info">LIST ALL</button></a>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    {% endif %}
+    <form id="mentorform" action="/searchmentor" method="POST">
+    <input type="text" placeholder="Enter Name" name="mentorsearchkey" id="mentorsearchkey"/>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onClick="checkForm('mentorform',document.getElementById('mentorsearchkey'));" class="btn btn-sm btn-primary">SEARCH</button>
+  </form>
+  </div>
+  <br/>
+  {% if option == "view" %}
+  <div class="row">
+  <div class="col-md-3">
+    <img height="300px" width="250px" src="/static/img/profile_default.png"/>
+  </div>
+  <div class="col-md-6">
+    <table class="table">
+      <tr>
+        <th>ID:</th>
+        <td>{{ data[0] }}</td>
+      </tr>
+      <tr>
+        <th>NAME:</th>
+        <td>{{ data[1] }}</td>
+      </tr>
+      <tr>
+        <th>EMAIL:</th>
+        <td>{{ data[2] }}</td>
+      </tr>
+        <th></th>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+</div>
+{% else %}
+  <div class="row">
+  <br/>
+    <table class="table table-bordered">
+      <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>EMAIL</th>
+      </tr>
+    {% for item in data %}
+    {% if item %}
+    <tr>
+      <td><a href="/viewmentor?id={{ item[0] }}">{{ item[0] }}</a></td>
+      <td>{{ item[1] }}</td>
+      <td>{{ item[2] }}</td>
+    </tr>
+    {% endif %}
+  {% endfor %}
+</table>
+<br/>
+<br/>
+{% if option != "search" %}
+<ul class="pagination">
+  <li><a href="/listmentor?page={{ page-1 }}">PREV</a></li>
+  <li><a href="#">{{ page }}</a></li>
+  <li><a href="/listmentor?page={{ page+1 }}">NEXT</a></li>
+  {% endif %}
+  </ul>
+  </div>
+  {% endif %}
+</div>
+{% else %}
+<div class="tab-pane col-lg-12" id="mentor">
+</div>
+{% endif %}
+
+{% if type == "moderator" %}
+<div class="tab-pane col-lg-12 active" id="moderator">
+
+<div  class="row">
+    {% if option == "view" %}
+    <a href="/report?id={{ data[0] }}"><button type="button" class="btn btn-sm btn-warning pull-right">DOWNLOAD</button></a>
+    <span class="pull-right"><a href="/delete?id={{ id }}"><button type="button" class="btn btn-sm btn-info">DELETE</button></a>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    {% endif %}
+    {% if listall %}
+    <span class="pull-right"><a href="/listmoderator"><button type="button" class="btn btn-sm btn-info">LIST ALL</button></a>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    {% endif %}
+    {% if option != "approval" %}
+    <!--<span class="pull-right"><a href="/viewapproval"><button type="button" class="btn btn-sm btn-info">VIEW APPROVAL REQUESTS</button></a>&nbsp;&nbsp;&nbsp;&nbsp;</span>-->
+    <form id="moderatorform" action="/searchmoderator" method="POST">
+    <input type="text" placeholder="Enter Name" name="moderatorsearchkey" id="moderatorsearchkey"/>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onClick="checkForm('moderatorform',document.getElementById('moderatorsearchkey'));" class="btn btn-sm btn-primary">SEARCH</button>
+    {% endif %}
+  </form>
+  </div>
+  <br/>
+  {% if option == "view" %}
+  <div class="row">
+  <div class="col-md-3">
+    <img height="300px" width="250px" src="/static/img/profile_default.png"/>
+  </div>
+  <div class="col-md-6">
+    <table class="table">
+      <tr>
+        <th>ID:</th>
+        <td>{{ data[0] }}</td>
+      </tr>
+      <tr>
+        <th>NAME:</th>
+        <td>{{ data[1] }}</td>
+      </tr>
+        <th>EMAIL:</th>
+        <td>{{ data[2] }}</td>
+      </tr>
+        <th></th>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+</div>
+{% elif option=="approval" %}
+<div class="row">
+  <form action="/submitapprovals" method="POST">
+    <table class="table table-bordered">
+      <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>APPROVE</th>
+        <th>DECLINE</th>
+      </tr>
+    {% for item in data %}
+    {% if item %}
+    <tr>
+      <td><a href="/viewmoderator?id={{ item[0] }}">{{ item[0] }}</a></td>
+      <td>{{ item[1] }}</td>
+      <td><input type="checkbox" name="status_{{ item[0] }}" id="status_{{ item[0] }}" value="Y" onclick="toggleclick('status_{{ item[0] }}',this);"/></td>
+      <td><input type="checkbox" name="status_{{ item[0] }}" id="status_{{ item[0] }}" value="N" onclick="toggleclick('status_{{ item[0] }}',this);"/></td>
+    </tr>
+    {% endif %}
+  {% endfor %}
+</table>
+<input type="submit" value="SUBMIT" class="btn btn-sm btn-primary"/>
+</form>
+  </div>
+{% else %}
+  <div class="row">
+  <br/>
+    <table class="table table-bordered">
+      <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>EMAIL</th>
+      </tr>
+    {% for item in data %}
+    {% if item %}
+    <tr>
+      <td><a href="/viewmoderator?id={{ item[0] }}">{{ item[0] }}</a></td>
+      <td>{{ item[1] }}</td>
+      <td>{{ item[2] }}</td>
+    </tr>
+    {% endif %}
+  {% endfor %}
+</table>
+<br/>
+<br/>
+{% if option != "search" %}
+<ul class="pagination">
+  <li><a href="/listmoderator?page={{ page-1 }}">PREV</a></li>
+  <li><a href="#">{{ page }}</a></li>
+  <li><a href="/listmoderator?page={{ page+1 }}">NEXT</a></li>
+  {% endif %}
+  </ul>
+  </div>
+  {% endif %}
+</div>
+{% else %}
+<div class="tab-pane col-lg-12" id="moderator">
+</div>
+{% endif %}
+<div class="tab-pane col-lg-12" id="reports">
+<h1>Reports</h1>
+</div>
+</div>
+</div>
+<!-- /container -->
+</body>
+</html>

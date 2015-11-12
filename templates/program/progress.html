@@ -1,0 +1,268 @@
+
+        
+  
+{% extends "/application/index.html" %}
+
+{% block body %}
+	{{ super() }}
+
+<script>
+	console.log("inside here");
+    $(document).on("click", ".editmodalbtn", function () {
+     var taskID = $(this).data('id');
+     
+    $(".modal-mod #TaskID1").val( taskID );
+    {% if test_list %}
+    	var test_list = {{test_list|tojson}};
+    	console.log("inside 1");
+
+   		for (var i = 0; i < test_list.length;i++) {
+			console.log("task_id"+test_list[i][1]);
+			if(test_list[i][1]==taskID)
+    		{
+    			$(".a1 #task_name").val( test_list[i][2] );
+			  	$(".b1 #task_description").val( test_list[i][3]);
+			   	$(".c1 #task_percentage").val( test_list[i][5]);
+			   	$(".d1 #task_id").val( taskID );
+		   	}
+	{% endif %}
+    }
+    });
+
+    $(document).on("click", ".completebtn", function () {
+    var taskID = $(this).data('id');
+    console.log("inside here2");
+   /* alert('you clicked a p.test element');*/
+    $(".modal-mod #TaskID1").val( taskID );
+    {% if test_list %}
+    	console.log("got some tasks");
+    	var test_list = {{test_list|tojson}};
+   		for (var i = 0; i < test_list.length;i++) {
+			if(test_list[i][1]==taskID)
+    		{
+    			console.log("Task ID retrieved"+taskID);
+			   	$(".t1 #complete_task_id").val( taskID );
+			  
+		   	}
+	{% endif %}
+    }
+    }
+
+
+    );
+</script>}
+
+	<div id="page-wrapper">
+			<br/>
+			<div class="container-fluid">
+    
+    <div class="row">
+    <!-- Populate the tasks here -->
+                    <div class="row">
+                            {% for task in task_list %}
+                                {% if task.task_status == "In Progress" %}
+                               <div class="col-lg-4">
+                                    <div class="panel panel-green">
+                                    <div class="panel-heading">
+                                        <p>{{task.task_name}}</p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p> {{ task.task_description }} </p>
+                                    </div>
+                                    <div class="panel-footer">
+                                            <button type="button" class="completebtn btn-default btn-circle" data-toggle="modal" data-id="{{task.task_id}}"  data-target="#completeTaskModal"><i class="fa fa-check"></i>
+                                            <button type="button" class="editmodalbtn btn-primary btn-circle" data-toggle="modal" data-id="{{task.task_id}}"  data-target="#editTaskModal"><i class="fa fa-list"></i>
+                                            </button>
+                                      
+                                    </div>
+                                    </div>
+                                   </div>
+                               {% elif task.task_status == "On Hold" %}
+                                    <div class="col-lg-4">
+                                    <div class="panel panel-yellow">
+                                    <div class="panel-heading">
+                                        <p>{{task.task_name}}</p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p> {{ task.task_description }} </p>
+                                    </div>
+                                    <div class="panel-footer">
+                                          <button type="button" class="completebtn btn-default btn-circle" data-toggle="modal" data-id="{{task.task_id}}"  data-target="#completeTaskModal"><i class="fa fa-check"></i>
+                                            <button type="button" class="editmodalbtn btn-primary btn-circle" data-toggle="modal" data-id="{{task.task_id}}" data-target="#editTaskModal"><i class="fa fa-list"></i>
+                                            {% set foo=task.task_id %}
+                                            </button>
+                                    </div>
+                                    </div>
+                                        </div>
+                                 {% elif task.task_status == "Under Trouble" %}
+                                    <div class="col-lg-4">
+                                    <div class="panel panel-red">
+                                    <div class="panel-heading">
+                                        <p>{{task.task_name}}</p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p> {{ task.task_description }} </p>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <button type="button" class="completebtn btn-default btn-circle" data-toggle="modal" data-id="{{task.task_id}}"  data-target="#completeTaskModal"><i class="fa fa-check"></i>
+                                            </button>
+                                            <button type="button" class="editmodalbtn btn-primary btn-circle" data-toggle="modal" data-id="{{task.task_id}}"  data-target="#editTaskModal"> <i class="fa fa-list"></i>
+                                            </button>
+
+                                    </div>
+                                    </div>
+                                   </div>
+                            {% endif %}
+
+                                 <div class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel">Update Task</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                    <div class="panel-body">
+                                                     <div class="form-group">
+                                                                 <form method="post" action="updateProgress">
+                                                                     <div class="modal-mod">
+                                                                     		<div class="d1">
+                                                                            <input class="form-control" id="task_id" name="task_id" value="" placeholder="task id" rows="1" style="visibility:collapse">                                                             
+                                                                            </div>
+
+                                                                            <label>Enter your Task </label>
+                                                                            <div class="a1">
+                                                                            <input class="form-control" id="task_name" name="task_name" placeholder="Name the Task" value="" x-webkit-speech> <br>
+                                                                            </div>
+
+                                                                            <label>Task Status</label>
+                                                                            <select class="form-control" id="task_status" name="task_status">
+                                                                                <option>In Progress</option>
+                                                                                <option>On Hold</option>
+                                                                                <option>Under Trouble</option>
+                                                                            </select> <br>
+
+                                                                            <label>Task Description</label>
+                                                                            <div class="b1">
+                                                                            <textarea id="task_description" class="form-control" rows="3" name="task_description" value="" x-webkit-speech></textarea>
+                                                                            </div>
+                                                                            <br>
+
+                                                                            <label>Task Progress</label>
+                                                                            <div class="c1">
+                                                                            <textarea class="form-control" rows="1" id="task_percentage" name="task_percentage" value="" x-webkit-speech></textarea>
+                                                                            </div>
+                                                                            <br>
+<!-- 
+                                                                       <button type="submit" class="btn btn-default" >Submit Button
+                                                                       </button> -->
+                                                                       <input type="submit" name="action1" value="Submit">
+                                                                        <!--<input type="submit" />-->
+                                                                     </div>
+                                                                </form>
+                                                     </div>
+                                                    </div>
+
+                                            </div>
+
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                   <!-- /.modal-dialog -->
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    </div>
+
+
+
+                 <div class="row">
+
+                    <!-- Modal Dialog for Inserting Task -->
+                                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addTaskModal">
+                                    Add New Task
+                                </button>
+                                <!-- Modal -->
+
+                                <!-- /.modal -->
+                    <!-- Modal Dialog for Inserting Task -->
+
+
+                      <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel">Add New Task</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                    <div class="panel-body">
+                                                     <div class="form-group">
+                                                            <form method="post" action="viewProgress">
+
+                                                                            <label>Enter your Task </label>
+                                                                            <input class="form-control" placeholder="Name the Task" name="task_name" x-webkit-speech> <br>
+                                                                            <label>Status</label>
+                                                                            <select class="form-control" name="task_status">
+                                                                                <option>In Progress</option>
+                                                                                <option>On Hold</option>
+                                                                                <option>Under Trouble</option>
+                                                                            </select> <br>
+                                                                            <label>Task Description</label>
+                                                                            <textarea class="form-control" rows="3" name="task_description" x-webkit-speech ></textarea>
+                                                                            <br>
+
+                                                                            <input type="submit" name="action2" value="Submit">
+                                                                        <!--<input type="submit" />-->
+                                                         </form>
+
+                                                     </div>
+                                                    </div>
+
+                                            </div>
+
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>              
+                 </div> 
+               
+
+
+                      <div class="modal fade" id="completeTaskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel">Complete Task</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                    <div class="panel-body">
+                                                     <div class="form-group">
+                                                            <form method="post" action="completeProgress">
+                                                            <div class="t1">
+ 														<input class="form-control" id="complete_task_id" name="complete_task_id" value="" placeholder="task id" rows="1" style="visibility:collapse">
+ 														</div>
+                                                           					<p> Are you sure you want to mark task as complete? </p> <br>
+
+                                                                            <input type="submit" name="action3" value="Submit">
+                                                                        <!--<input type="submit" />-->
+                                                         </form>
+
+                                                     </div>
+                                                    </div>
+
+                                            </div>
+
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>              
+                 </div> 
+
+
+                </div>
+                
+            
+    </div>
+	
+{% endblock %}

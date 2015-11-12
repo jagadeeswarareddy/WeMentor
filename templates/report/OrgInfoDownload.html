@@ -1,0 +1,58 @@
+{% extends "/report/base.html" %}
+
+{% block title %}Report{% endblock %}
+
+{% block head %}
+{{super()}}
+<style>
+background-color:light
+
+table,td,th{border: 2px solid;}
+
+th{
+ background-color:LightSkyBlue;
+ color:white;
+height:40px
+
+}
+td{
+height:50px;
+width:200px;
+vertical-align:bottom;
+font-family:Arial; font-size:10pt
+}
+</style>
+{% endblock %}
+{% block page_content %}
+<div class="page-header">
+<table>
+<tr>
+<th>User Attribute</th>
+<th>Value<th>
+</tr>
+  <tr>
+    <td bgcolor="bisque">Total Number of Users</td>
+    <td bgcolor="cornsilk">{% if total[0] %}{{total[0]}}{% endif %}</td>
+  </tr>
+  <tr>
+    <td bgcolor="LightGrey">Total Number of Mentors</td>
+    <td bgcolor="LightGrey">{% if No_Mentor[0] %}{{No_Mentor[0]}}{% endif %}</td>
+  </tr>
+  <tr>
+    <td bgcolor="bisque">Total Number of Mentees</td>
+    <td bgcolor="cornsilk">{% if No_Mentee[0]%}{{No_Mentee[0]}}{% endif %}</td>
+  </tr>  
+   <tr>
+     <td bgcolor="LightGrey">Total Number of Moderators</td>
+     <td bgcolor="lightGrey">{% if No_Moderator[0]%}{{No_Moderator[0]}}{% endif %}</td>
+   </tr>
+   <tr>
+     <td bgcolor="bisque">Total Number of Administrators</td>
+     <td bgcolor="cornsilk">{% if No_Administrator[0]%}{{No_Administrator[0]}}{% endif %}</td>
+   </tr>
+</table>      
+</div>
+
+
+{% endblock %}
+{% block navbar %}  {% endblock %}

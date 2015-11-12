@@ -1,0 +1,81 @@
+{% extends "/application/index.html" %}
+
+<title>FORUM</title>
+{% block head %}
+	{{ super() }}
+	
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/forum.css') }}">
+	<link href="/static/css/jquery.dataTables.css" rel="stylesheet">
+    <link href="/static/moderator/css/dataTables.bootstrap.css" rel="stylesheet">
+	
+	<!-- Datatables CSS -->
+	
+	
+{% endblock %}
+
+{% block body %}
+		
+		{{ super() }}
+		
+		<div id="page-wrapper">
+			<br/>
+			<div class="container-fluid">
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">	
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-edit"></i> <a href="/forum">Forum</a>
+                            </li>	
+							<a href="/forumquestion" style="float:right">Create New Topic</a>
+                        </ol>						
+                    </div>
+                </div>
+                <!-- /.row -->
+		
+               <form method = 'POST' action='ApproveMentor'>
+				<div id="mentorList" > 
+				<table id = "forumcontent" class="table table-hover table-bordered ">
+				<thead>
+				<tr>
+					<th>Topic Name</th>
+					<th>Topic Description</th>
+					<th>User Name</th>
+					<th>Create Time</th>
+				</tr>
+				</thead>      
+	
+				<tbody> 
+				{% for name in data %}
+				<tr>
+					<td><a href = /forumselect?name={{ name[0] }}>{{ name[1] }}</a> </td>
+					<td><a href = /forumselect?name={{ name[0] }}>{{ name[2] }}</a> </td>
+					<td><a href = /forumselect?name={{ name[0] }}>{{ name[3] }}</a> </td>
+					<td><a href = /forumselect?name={{ name[0] }}>{{ name[5] }}</a> </td>
+				</tr>
+				{% endfor %}
+				</tbody>
+				</table>          
+				</div>
+				</form>
+
+            </div>
+		</div>
+		
+		
+		
+		<script src="/static/moderator/js/jquery.js"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="/static/moderator/js/bootstrap.min.js"></script>
+		<script src="/static/moderator/js/jquery.dataTables.min.js"></script>
+		<script src="/static/moderator/js/dataTables.bootstrap.js"></script>
+	
+	<script>
+		$('#forumcontent').dataTable();
+	</script>
+		
+{% endblock %}
+
+	
+

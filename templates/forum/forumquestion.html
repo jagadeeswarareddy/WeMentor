@@ -1,0 +1,73 @@
+{% extends "/application/index.html" %}
+
+<title>FORUM</title>
+{% block head %}
+	{{ super() }}
+	
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/forum.css') }}">
+	
+	<!-- Datatables CSS -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.dataTables_themeroller.css') }}">
+	
+	<script type="text/javascript" src="/static/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+	$(document).ready(function () {
+		$('#forumcontent').dataTable();	
+	}
+	</script>
+{% endblock %}
+
+{% block body %}
+		
+	{{ super() }}
+	
+	<div id="page-wrapper">
+	<br/>
+	<div class="container-fluid">
+		<!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-edit"></i>  <a href="/forum">Forum</a>
+                            </li>
+                            <li>
+                                <i class="fa"></i>Create New Topic
+                            </li>	
+						</ol>						
+                    </div>
+                </div>
+                <!-- /.row -->
+		<form class="form-signin" id="questionForm" action="/insertIntoForum" method="post" role="form">
+        <table id="questionForm">
+          <tr>
+            <td>Short Description :</td>
+          </tr>
+		  <tr>
+            <td>
+              <input type="text" name="topic_name" id="textbox" required="" autofocus=""/>
+            </td>
+          </tr>
+		  <tr>
+            <td>&nbsp</td>
+          </tr>
+		  <tr>
+            <td>Topic Details :</td>
+          </tr>
+		  <tr>
+            <td>
+              <textarea name="topic_desc" required="" autofocus="" ></textarea>
+            </td>
+          </tr>
+		  <tr>
+            <td>&nbsp</td>
+          </tr>
+          <tr>
+            <td>
+              <input type="submit" value="Create"/>
+            </td>
+          </tr>
+        </table>
+      </form>
+{% endblock %}

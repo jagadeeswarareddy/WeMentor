@@ -1,0 +1,132 @@
+.responseForm 
+{
+	align:center;
+	margin: 0 auto;
+}
+
+.questionForm 
+{
+	align:center;
+	margin: 0 auto;
+}
+
+#text
+{
+float:left;
+width:100px;
+}
+
+/*CSS for input textbox and password*/
+
+#textbox
+{
+width: 500px;
+height: 40px;
+border: 1px solid #CCC;
+padding: 8px;
+font-weight: 200;
+font-size: 15px;
+font-family: Calibri;
+box-shadow: 1px 1px 5px #CCC;
+}
+
+#textbox:hover
+{
+border: 1px solid #0266C8;
+box-shadow: 1px 1px 5px #CCC;
+}
+
+/*CSS for textarea*/
+
+textarea
+{
+width: 1000px;
+height: 200px;
+border: 1px solid #CCC;
+padding: 8px;
+font-weight: 200;
+font-size: 15px;
+font-family: Calibri;
+box-shadow: 1px 1px 5px #CCC;
+}
+textarea:hover
+{
+border: 1px solid #0266C8;
+box-shadow: 1px 1px 5px #CCC;
+}
+
+/*input type for submit button*/
+
+input[type='submit']
+{
+width: 150px;
+height: 34px;
+border: 2px solid white;
+background-color:#CCC;
+}
+input[type='submit']:hover
+{
+width: 150px;
+height: 34px;
+border: 2px solid white;
+background-color:#000000;
+color:#fff;
+}
+
+.responseForm  {
+    color: #888;
+    background: none repeat scroll 0% 0% #F9F9F9;
+    border: 1px solid #D4D4D4;
+    box-shadow: -1px 1px #F2F2F2;
+    padding: 7px 10px 9px;
+	font-family: Calibri;
+}
+
+.questionForm  {
+    color: #888;
+    background: none repeat scroll 0% 0% #F9F9F9;
+    border: 1px solid #D4D4D4;
+    box-shadow: -1px 1px #F2F2F2;
+    padding: 7px 10px 9px;
+	font-family: Calibri;
+}
+
+.container {
+	width:100%; 
+	position:absolute;	
+}
+
+.forumhead {
+    margin-top: 20px;
+	height: 25px !important;
+    border-width: 0px 0px 5px;
+    border-style: none none solid;
+    border-color: #0097a7;
+	background: none repeat scroll 0% 0% #00acc1;
+    padding: 5px 0 0 20px;
+    font-family: Calibri;
+    color: #FFF;
+    clear: both;
+    margin-top: 8px;
+    float: left;
+    width: 98%;
+	
+}
+
+.forumtable {
+	width:98%;
+	float:left;
+	font-family: Calibri;
+	color:#D4D4D4;
+	border-width:1px;
+	border-color: #0097a7;
+}
+
+.createTopicButton {
+	float:right;
+	border:none;
+	background:none;
+	color: white;
+	font-family: Calibri;
+	font-size: 15px;
+}

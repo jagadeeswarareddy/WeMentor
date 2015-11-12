@@ -1,0 +1,78 @@
+{% extends "/report/base.html" %}
+
+{% block title %}Report{% endblock %}
+
+{% block head %}
+{{super()}}
+<style>
+background-color:light
+
+table,td,th{border: 2px solid;}
+
+th{
+ background-color:LightSkyBlue;
+ color:white;
+height:40px
+
+}
+td{
+height:50px;
+width:200px;
+vertical-align:bottom;
+font-family:Arial; font-size:10pt
+}
+</style>
+{% endblock %}
+{% block page_content %}
+<div class="page-header">
+<table>
+<tr>
+<th>User Attribute</th>
+<th>Value</th>
+</tr>
+  <tr>
+    <td bgcolor="bisque">User ID</td>
+    <td bgcolor="cornsilk">{% if accountinfo[0] %}{{accountinfo[0]}}{% endif %}</td>
+  </tr>
+  <tr>
+    <td bgcolor="LightGrey">User Type</td>
+    <td bgcolor="LightGrey">{% if accountinfo[3] %}{{accountinfo[3]}}{% endif %}</td>
+  </tr>
+  <tr>
+    <td bgcolor="bisque">Email</td>
+    <td bgcolor="cornsilk">{% if accountinfo[1]%}{{accountinfo[1]}}{% endif %}</td>
+  </tr>
+   <tr>
+     <td bgcolor="LightGrey">User Name</td>
+     <td bgcolor="lightGrey">{% if personalinfo[1]%}{{personalinfo[1]}}{% endif %}</td>
+   </tr>
+   <tr>
+     <td bgcolor="bisque">Disability</td>
+     <td bgcolor="cornsilk">{% if personalinfo[9] %}{{personalinfo[9]}}{% endif %}</td>
+   </tr>
+   <tr>
+    <td bgcolor="lightGrey">Phone</td>
+    <td bgcolor="LightGrey">{% if personalinfo[2] %}{{personalinfo[2]}}{% endif %}</td>
+   </tr>
+   <tr>
+    <td bgcolor="bisque">Address</td>
+    <td bgcolor="cornsilk">{% if personalinfo[3] %}{{personalinfo[3]}}{% endif %}</td>
+   </tr>
+   <tr>
+     <td bgcolor="LightGrey">Gender</td>
+     <td bgcolor="LightGrey">{% if personalinfo[4] %}{{personalinfo[4]}}{% endif %}</td>
+   </tr>
+    <tr>
+    <td bgcolor="bisque">Qualification</td>
+    <td bgcolor="cornsilk">{% if personalinfo[6] %}{{personalinfo[6]}}{% endif %}</td>
+   </tr>
+<tr>
+     <td bgcolor="LightGrey">InterestedArea</td>
+     <td bgcolor="LightGrey">{% if personalinfo[7] %}{{personalinfo[7]}}{% endif %}</td>
+   </tr>
+
+</table>
+</div>
+
+{% endblock %}
+{% block navbar %}  {% endblock %}
